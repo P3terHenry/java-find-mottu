@@ -29,7 +29,7 @@
 
 ## 🎥 Youtube
 
-Apresentação do projeto no Youtube: https://youtu.be/1v2X4Yk3b0g
+Apresentação do projeto no Youtube: https://www.youtube.com/watch?v=qkSbIB2PRp8
 
 <p align="right"><a href="#readme-top">Voltar ao topo</a></p>
 
