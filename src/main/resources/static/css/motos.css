@@ -1,0 +1,495 @@
+/* ==============================================
+   MOTOS - ESTILOS ESPECÍFICOS
+   ============================================== */
+
+/* Page Header - Padrão do sistema */
+.page-header {
+    margin-bottom: 2rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid rgba(5, 175, 49, 0.2);
+}
+
+.page-title {
+    color: #ffffff;
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    display: flex;
+    align-items: center;
+}
+
+.page-title i {
+    color: var(--mottu-green-neon);
+    margin-right: 0.75rem;
+}
+
+.page-subtitle {
+    color: #cccccc;
+    font-size: 1rem;
+    margin: 0;
+}
+
+/* Container da tabela/grid - Seguindo padrão do sistema */
+.users-table-container {
+    background: transparent;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+    margin-bottom: 2rem;
+}
+
+.users-table-header {
+    background: linear-gradient(135deg, var(--mottu-green-dark), var(--mottu-green-neon));
+    padding: 1.5rem;
+    border: none;
+    position: relative;
+}
+
+.users-table-header::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, rgba(0, 0, 0, 0.1), rgba(255, 255, 255, 0.05));
+    pointer-events: none;
+}
+
+.table-title {
+    color: #ffffff;
+    font-weight: 700;
+    font-size: 1.25rem;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    position: relative;
+    z-index: 1;
+}
+
+.table-title i {
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 1.4rem;
+    margin-right: 0.75rem;
+}
+
+/* Controls da tabela */
+.table-controls {
+    background: rgba(26, 26, 26, 0.5);
+    padding: 1rem 1.5rem;
+    border-bottom: 1px solid rgba(5, 175, 49, 0.1);
+}
+
+.results-info {
+    color: #cccccc;
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+}
+
+.results-info i {
+    color: var(--mottu-green-neon);
+}
+
+.results-count {
+    color: var(--mottu-green-neon);
+    font-weight: 600;
+}
+
+/* Grid de Motos - Layout de Estacionamento melhorado */
+.motos-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 20px;
+    padding: 20px;
+    background: rgba(26, 26, 26, 0.3);
+}
+
+/* Moto Cards - Melhorados */
+.moto-card {
+    background: rgba(26, 26, 26, 0.95);
+    border: 1px solid var(--mottu-green-dark);
+    border-radius: 12px;
+    padding: 20px;
+    position: relative;
+    transition: all 0.3s ease;
+    min-height: 280px;
+    display: flex;
+    flex-direction: column;
+    backdrop-filter: blur(5px);
+}
+
+.moto-card:hover {
+    transform: translateY(-3px);
+    border-color: var(--mottu-green-neon);
+    box-shadow: 0 8px 25px rgba(5, 175, 49, 0.2);
+}
+
+/* Status Badge - Seguindo padrão do sistema */
+.moto-status-badge {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.moto-status-badge.status-ativa {
+    background: rgba(40, 167, 69, 0.2);
+    color: #28a745;
+    border: 1px solid rgba(40, 167, 69, 0.3);
+}
+
+.moto-status-badge.status-inativa {
+    background: rgba(108, 117, 125, 0.2);
+    color: #6c757d;
+    border: 1px solid rgba(108, 117, 125, 0.3);
+}
+
+.moto-status-badge.status-manutencao {
+    background: rgba(255, 193, 7, 0.2);
+    color: #ffc107;
+    border: 1px solid rgba(255, 193, 7, 0.3);
+}
+
+.moto-status-badge.status-reservada {
+    background: rgba(13, 202, 240, 0.2);
+    color: #0dcaf0;
+    border: 1px solid rgba(13, 202, 240, 0.3);
+}
+
+/* Ícone da Moto */
+.moto-icon {
+    text-align: center;
+    margin: 20px 0 15px 0;
+}
+
+.moto-icon i {
+    font-size: 3.5rem;
+    color: var(--mottu-green-neon);
+    text-shadow: 0 0 15px rgba(5, 175, 49, 0.5);
+}
+
+/* Informações da Moto - Cores melhoradas */
+.moto-info {
+    flex: 1;
+    text-align: center;
+}
+
+.moto-placa {
+    font-size: 1.4rem;
+    font-weight: bold;
+    color: var(--mottu-green-neon);
+    margin-bottom: 8px;
+    letter-spacing: 1px;
+    text-shadow: 0 0 10px rgba(5, 175, 49, 0.3);
+}
+
+.moto-modelo {
+    font-size: 1rem;
+    color: #ffffff;
+    margin-bottom: 15px;
+    font-weight: 500;
+}
+
+.moto-details {
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 8px;
+    padding: 12px;
+    margin-bottom: 15px;
+    border: 1px solid rgba(5, 175, 49, 0.2);
+}
+
+.moto-details small {
+    line-height: 1.8;
+    color: #e0e0e0 !important;
+    font-size: 0.85rem;
+}
+
+.moto-details strong {
+    color: var(--mottu-green-neon);
+    font-weight: 600;
+    text-shadow: 0 0 5px rgba(5, 175, 49, 0.3);
+}
+
+.moto-details span {
+    color: #ffffff !important;
+    font-weight: 500;
+}
+
+/* Ações da Moto */
+.moto-actions {
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+    margin-top: auto;
+    padding-top: 15px;
+}
+
+/* Action Buttons - Seguindo padrão das outras páginas */
+.moto-actions .btn-action {
+    width: 36px;
+    height: 36px;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.9rem;
+    border: none;
+    transition: all 0.3s ease;
+    text-decoration: none;
+}
+
+/* Botão Detalhes */
+.moto-actions .btn-outline-primary,
+.moto-actions .btn-details {
+    background: rgba(13, 202, 240, 0.2);
+    color: #0dcaf0;
+    border: 1px solid rgba(13, 202, 240, 0.3);
+    backdrop-filter: blur(5px);
+}
+
+.moto-actions .btn-outline-primary:hover,
+.moto-actions .btn-details:hover {
+    background: #0dcaf0;
+    color: #000000;
+    border-color: #0dcaf0;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(13, 202, 240, 0.3);
+    text-decoration: none;
+}
+
+.moto-actions .btn-outline-primary:focus,
+.moto-actions .btn-details:focus {
+    background: rgba(13, 202, 240, 0.3);
+    border-color: rgba(13, 202, 240, 0.5);
+    color: #0dcaf0;
+    box-shadow: 0 0 0 0.15rem rgba(13, 202, 240, 0.25);
+    outline: none;
+}
+
+/* Botão Editar */
+.moto-actions .btn-outline-warning,
+.moto-actions .btn-edit {
+    background: rgba(255, 193, 7, 0.2);
+    color: #ffc107;
+    border: 1px solid rgba(255, 193, 7, 0.3);
+    backdrop-filter: blur(5px);
+}
+
+.moto-actions .btn-outline-warning:hover,
+.moto-actions .btn-edit:hover {
+    background: #ffc107;
+    color: #000000;
+    border-color: #ffc107;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(255, 193, 7, 0.3);
+    text-decoration: none;
+}
+
+.moto-actions .btn-outline-warning:focus,
+.moto-actions .btn-edit:focus {
+    background: rgba(255, 193, 7, 0.3);
+    border-color: rgba(255, 193, 7, 0.5);
+    color: #ffc107;
+    box-shadow: 0 0 0 0.15rem rgba(255, 193, 7, 0.25);
+    outline: none;
+}
+
+/* Botão Excluir */
+.moto-actions .btn-outline-danger,
+.moto-actions .btn-delete {
+    background: rgba(220, 53, 69, 0.2);
+    color: #dc3545;
+    border: 1px solid rgba(220, 53, 69, 0.3);
+    backdrop-filter: blur(5px);
+}
+
+.moto-actions .btn-outline-danger:hover,
+.moto-actions .btn-delete:hover {
+    background: #dc3545;
+    color: #ffffff;
+    border-color: #dc3545;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(220, 53, 69, 0.3);
+    text-decoration: none;
+}
+
+.moto-actions .btn-outline-danger:focus,
+.moto-actions .btn-delete:focus {
+    background: rgba(220, 53, 69, 0.3);
+    border-color: rgba(220, 53, 69, 0.5);
+    color: #dc3545;
+    box-shadow: 0 0 0 0.15rem rgba(220, 53, 69, 0.25);
+    outline: none;
+}
+
+/* Cards de Estatísticas - Padronizados */
+.stats-container {
+    margin-bottom: 2rem;
+}
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.stat-card {
+    background: rgba(26, 26, 26, 0.95);
+    border: 1px solid var(--mottu-green-dark);
+    border-radius: 12px;
+    padding: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(5px);
+}
+
+.stat-card:hover {
+    border-color: var(--mottu-green-neon);
+    box-shadow: 0 5px 20px rgba(5, 175, 49, 0.15);
+    transform: translateY(-2px);
+}
+
+.stat-icon {
+    width: 50px;
+    height: 50px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    color: white;
+}
+
+.stat-icon.bg-primary {
+    background: linear-gradient(45deg, var(--mottu-green-dark), var(--mottu-green-neon));
+}
+
+.stat-icon.bg-success {
+    background: linear-gradient(45deg, #28a745, #20c997);
+}
+
+.stat-icon.bg-secondary {
+    background: linear-gradient(45deg, #6c757d, #495057);
+}
+
+.stat-icon.bg-warning {
+    background: linear-gradient(45deg, #fd7e14, #e63946);
+}
+
+.stat-info h3 {
+    font-size: 1.75rem;
+    font-weight: bold;
+    color: #ffffff;
+    margin: 0;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+}
+
+.stat-info p {
+    font-size: 0.9rem;
+    color: #cccccc;
+    margin: 0;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* Estado Vazio - Padronizado */
+.empty-state {
+    text-align: center;
+    padding: 60px 20px;
+    background: rgba(26, 26, 26, 0.3);
+    border-radius: 12px;
+    margin: 20px;
+}
+
+.empty-icon {
+    margin-bottom: 20px;
+}
+
+.empty-icon i {
+    font-size: 5rem;
+    color: var(--mottu-green-dark);
+    opacity: 0.6;
+}
+
+.empty-state h4 {
+    color: var(--mottu-green-neon);
+    margin-bottom: 15px;
+    font-weight: 600;
+}
+
+.empty-state p {
+    color: #cccccc;
+    margin-bottom: 25px;
+}
+
+/* Responsividade melhorada */
+@media (max-width: 768px) {
+    .users-table-header .d-flex {
+        flex-direction: column;
+        align-items: stretch !important;
+        gap: 1rem;
+    }
+
+    .search-container {
+        width: 100%;
+    }
+
+    .search-container form {
+        flex-wrap: wrap;
+        gap: 0.5rem;
+    }
+
+    .search-input {
+        width: 100%;
+        margin-bottom: 0.5rem;
+    }
+
+    .search-container .form-select {
+        flex: 1;
+        min-width: 80px;
+    }
+
+    .search-container .btn-outline-mottu {
+        flex-shrink: 0;
+    }
+
+    .stats-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .motos-grid {
+        grid-template-columns: 1fr;
+        padding: 15px;
+    }
+}
+
+@media (max-width: 576px) {
+    .page-title {
+        font-size: 1.5rem;
+    }
+
+    .moto-card {
+        min-height: auto;
+    }
+
+    .search-container form {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .search-input,
+    .search-container .form-select,
+    .search-container .btn-outline-mottu {
+        width: 100%;
+    }
+}

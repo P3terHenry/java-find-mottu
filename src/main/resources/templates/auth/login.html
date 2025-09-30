@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="pt-br" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/head :: head('Login - Find Mottu')}">
+</head>
+<body>
+    <div class="container-fluid vh-100 d-flex align-items-center justify-content-center">
+        <div class="row w-100 justify-content-center">
+            <div class="col-12 col-sm-8 col-md-6 col-lg-4 col-xl-3">
+                <div class="card shadow-lg border-0 mottu-card">
+                    <div class="card-body p-4">
+                        <!-- Logo/Header -->
+                        <div class="text-center mb-4">
+                            <div class="mx-auto mb-3 d-flex align-items-center justify-content-center" style="width: 120px; height: 120px;">
+                                <img th:src="@{/images/logo.png}" alt="Find Mottu Logo" class="img-fluid" style="max-width: 100%; max-height: 100%; object-fit: contain;">
+                            </div>
+                            <h3 class="card-title fw-bold" style="flex-direction: column;">Find Mottu</h3>
+                            <p class="text-mottu-light small">Dashboard de Gerenciamento</p>
+                        </div>
+
+                        <!-- Mensagem de Logout -->
+                        <div th:if="${param.logout}" class="mb-3">
+                            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                <i class="bi bi-check-circle-fill me-2"></i>
+                                Logout efetuado com sucesso!
+                                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert"></button>
+                            </div>
+                        </div>
+
+                        <!-- Formulário de Login -->
+                        <form th:action="@{/login}" method="post">
+                            <div class="mb-3">
+                                <label for="username" class="form-label">
+                                    <i class="bi bi-person-fill me-2"></i>E-mail
+                                </label>
+                                <input class="form-control form-control-lg"
+                                       type="text"
+                                       id="username"
+                                       name="username"
+                                       placeholder="Digite seu e-mail"
+                                       required
+                                       autocomplete="username">
+                            </div>
+
+                            <div class="mb-4">
+                                <label for="password" class="form-label">
+                                    <i class="bi bi-lock-fill me-2"></i>Senha
+                                </label>
+                                <input class="form-control form-control-lg"
+                                       type="password"
+                                       id="password"
+                                       name="password"
+                                       placeholder="Digite sua senha"
+                                       required
+                                       autocomplete="current-password">
+                            </div>
+
+                            <!-- Mensagem de Erro -->
+                            <div th:if="${param.error}" class="mb-3">
+                                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                    <i class="bi bi-exclamation-triangle-fill me-2"></i>
+                                    E-mail ou senha inválidos!
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                                </div>
+                            </div>
+
+                            <div class="d-grid">
+                                <button type="submit" class="btn btn-mottu btn-lg">
+                                    <i class="bi bi-box-arrow-in-right me-2"></i>
+                                    Entrar
+                                </button>
+                            </div>
+                        </form>
+
+                        <!-- Footer -->
+                        <div class="text-center mt-4">
+                            <small class="text-mottu-light">
+                                © 2025 Find Mottu - FIAP
+                            </small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

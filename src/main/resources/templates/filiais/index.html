@@ -1,0 +1,259 @@
+<!doctype html>
+<html lang="pt-br" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/head :: head('Filiais - Find Mottu')}">
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-mottu fixed-top">
+        <div class="container-fluid">
+            <div class="navbar-brand d-flex align-items-center">
+                <div class="me-2">
+                    <img th:src="@{/images/logo.png}" alt="Find Mottu" width="48" height="48">
+                </div>
+                <span class="fw-bold text-white">Find Mottu</span>
+            </div>
+
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/dashboard}"><i class="bi bi-speedometer2 me-1"></i>Dashboard</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/motos}"><i class="bi bi-bicycle me-1"></i>Motos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" th:href="@{/filiais}"><i class="bi bi-building me-1"></i>Filiais</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/usuarios}"><i class="bi bi-people me-1"></i>Usuários</a>
+                    </li>
+                </ul>
+
+                <div class="navbar-nav">
+                    <div class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" role="button" data-bs-toggle="dropdown">
+                            <div class="user-avatar me-2">
+                                <i class="bi bi-person-circle"></i>
+                            </div>
+                            <span th:text="${user_logged.primeiroNome + ' ' + user_logged.sobrenome}">Usuário</span>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end dropdown-mottu">
+                            <li><a class="dropdown-item" th:href="@{/logout}"><i class="bi bi-box-arrow-right me-2"></i>Sair</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <div class="container-fluid">
+            <!-- Page Header -->
+            <div class="page-header">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <h1 class="page-title">
+                            <i class="bi bi-building me-2"></i>Gerenciar Filiais
+                        </h1>
+                        <p class="page-subtitle">Visualize e gerencie todas as filiais do sistema</p>
+                    </div>
+                    <!-- Botão Nova Filial - Apenas para ADMIN -->
+                    <div th:if="${#sets.contains(user_logged.cargos.![nome], T(br.com.fiap.find_mottu.model.EnumCargo).ADMIN)}">
+                        <a th:href="@{/filial/nova}" class="btn btn-mottu">
+                            <i class="bi bi-building-add me-2"></i>Nova Filial
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Mensagens de Sucesso/Erro -->
+            <div th:if="${sucesso}" class="alert alert-success alert-dismissible fade show" role="alert">
+                <i class="bi bi-check-circle-fill me-2"></i>
+                <span th:text="${sucesso}"></span>
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            </div>
+
+            <div th:if="${erro}" class="alert alert-danger alert-dismissible fade show" role="alert">
+                <i class="bi bi-exclamation-triangle-fill me-2"></i>
+                <span th:text="${erro}"></span>
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            </div>
+
+            <!-- Filials Table Card -->
+            <div class="row">
+                <div class="col-12">
+                    <div class="users-table-container">
+                        <!-- Header da Tabela -->
+                        <div class="users-table-header">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <h5 class="table-title">
+                                    <i class="bi bi-list"></i>Lista de Filiais
+                                </h5>
+                                <div class="search-container">
+                                    <input type="text" class="search-input" placeholder="Buscar filiais..." id="searchInput">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Controles da Tabela -->
+                        <div class="table-controls">
+                            <div class="results-info">
+                                <i class="bi bi-building me-2"></i>
+                                Mostrando <span class="results-count" id="resultsCount" th:text="${#lists.size(filiais)}">0</span> filiais
+                            </div>
+                            <div class="d-flex align-items-center gap-2">
+                                <small class="results-info">
+                                    <i class="bi bi-info-circle me-1"></i>
+                                    Use a barra de busca para filtrar
+                                </small>
+                            </div>
+                        </div>
+
+                        <!-- Tabela -->
+                        <div class="table-responsive">
+                            <table class="table table-usuarios mb-0">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">#</th>
+                                        <th scope="col">Endereço</th>
+                                        <th scope="col">Usuários</th>
+                                        <th scope="col" class="text-center">Ações</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr th:each="filial, iterStat : ${filiais}" class="user-row filial-row">
+                                        <td>
+                                            <span class="user-id" th:text="${filial.id}">1</span>
+                                        </td>
+                                        <td>
+                                            <div class="d-flex align-items-center">
+                                                <div class="filial-icon me-2">
+                                                    <i class="bi bi-building"></i>
+                                                </div>
+                                                <div>
+                                                    <div class="filial-name" th:text="${filial.endereco}">Endereço da Filial</div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <span class="user-count badge cargo-badge" th:text="${#lists.size(filial.usuarios)} + ' usuários'">0 usuários</span>
+                                        </td>
+                                        <td class="text-center">
+                                            <div class="action-buttons">
+                                                <!-- Detalhes -->
+                                                <a th:href="@{/filial/detalhes/{id}(id=${filial.id})}" class="btn btn-action btn-details" title="Ver Detalhes">
+                                                    <i class="bi bi-eye"></i>
+                                                </a>
+                                                <!-- Editar - Apenas para ADMIN -->
+                                                <a th:href="@{/filial/editar/{id}(id=${filial.id})}"
+                                                   class="btn btn-action btn-edit"
+                                                   title="Editar"
+                                                   th:if="${#sets.contains(user_logged.cargos.![nome], T(br.com.fiap.find_mottu.model.EnumCargo).ADMIN)}">
+                                                    <i class="bi bi-pencil"></i>
+                                                </a>
+                                                <!-- Excluir - Apenas para ADMIN -->
+                                                <button type="button"
+                                                        class="btn btn-action btn-delete"
+                                                        th:data-id="${filial.id}"
+                                                        th:data-name="${filial.endereco}"
+                                                        title="Excluir"
+                                                        th:if="${#sets.contains(user_logged.cargos.![nome], T(br.com.fiap.find_mottu.model.EnumCargo).ADMIN)}">
+                                                    <i class="bi bi-trash"></i>
+                                                </button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <!-- Empty State -->
+                        <div th:if="${#lists.isEmpty(filiais)}" class="empty-state">
+                            <div class="empty-icon">
+                                <i class="bi bi-building-x"></i>
+                            </div>
+                            <h5 class="empty-title">Nenhuma filial encontrada</h5>
+                            <p class="empty-description">Não há filiais cadastradas no sistema ainda.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de Confirmação de Exclusão -->
+    <div class="modal fade" id="deleteModal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content modal-mottu">
+                <div class="modal-header">
+                    <h5 class="modal-title">
+                        <i class="bi bi-exclamation-triangle me-2"></i>Confirmar Exclusão
+                    </h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <p>Tem certeza que deseja excluir a filial <strong id="deleteFilialName"></strong>?</p>
+                    <p class="text-warning">
+                        <i class="bi bi-info-circle me-1"></i>
+                        Esta ação não pode ser desfeita.
+                    </p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-mottu" data-bs-dismiss="modal">Cancelar</button>
+                    <a id="confirmDeleteLink" href="#" class="btn-page-delete">Excluir</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Search functionality
+            const searchInput = document.getElementById('searchInput');
+            const filialRows = document.querySelectorAll('.filial-row');
+
+            searchInput.addEventListener('input', function() {
+                const searchTerm = this.value.toLowerCase();
+
+                filialRows.forEach(row => {
+                    const filialName = row.querySelector('.filial-name').textContent.toLowerCase();
+
+                    if (filialName.includes(searchTerm)) {
+                        row.style.display = '';
+                    } else {
+                        row.style.display = 'none';
+                    }
+                });
+            });
+
+            // Delete confirmation - Implementação simples
+            const deleteButtons = document.querySelectorAll('.btn-delete');
+            const deleteModal = new bootstrap.Modal(document.getElementById('deleteModal'));
+            const confirmDeleteLink = document.getElementById('confirmDeleteLink');
+            const deleteFilialName = document.getElementById('deleteFilialName');
+
+            deleteButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const filialId = this.dataset.id;
+                    const filialName = this.dataset.name;
+
+                    // Atualizar o nome no modal
+                    deleteFilialName.textContent = filialName;
+
+                    // Atualizar o link de exclusão
+                    confirmDeleteLink.href = `/filial/deletar/${filialId}`;
+
+                    // Mostrar o modal
+                    deleteModal.show();
+                });
+            });
+        });
+    </script>
+</body>
+</html>

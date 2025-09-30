@@ -1,0 +1,204 @@
+<!doctype html>
+<html lang="pt-br" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/head :: head('Detalhes da Filial - Find Mottu')}">
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-mottu fixed-top">
+        <div class="container-fluid">
+            <div class="navbar-brand d-flex align-items-center">
+                <div class="me-2">
+                    <img th:src="@{/images/logo.png}" alt="Find Mottu" width="48" height="48">
+                </div>
+                <span class="fw-bold text-white">Find Mottu</span>
+            </div>
+
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/dashboard}"><i class="bi bi-speedometer2 me-1"></i>Dashboard</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/motos}"><i class="bi bi-bicycle me-1"></i>Motos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" th:href="@{/filiais}"><i class="bi bi-building me-1"></i>Filiais</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/usuarios}"><i class="bi bi-people me-1"></i>Usuários</a>
+                    </li>
+                </ul>
+
+                <div class="navbar-nav">
+                    <div class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" role="button" data-bs-toggle="dropdown">
+                            <div class="user-avatar me-2">
+                                <i class="bi bi-person-circle"></i>
+                            </div>
+                            <span th:text="${user_logged.primeiroNome + ' ' + user_logged.sobrenome}">Usuário</span>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end dropdown-mottu">
+                            <li><a class="dropdown-item" th:href="@{/logout}"><i class="bi bi-box-arrow-right me-2"></i>Sair</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <div class="container-fluid">
+            <!-- Page Header -->
+            <div class="page-header">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <h1 class="page-title">
+                            <i class="bi bi-building me-2"></i>Detalhes da Filial
+                        </h1>
+                        <p class="page-subtitle">Informações completas da filial selecionada</p>
+                    </div>
+                    <div class="d-flex gap-2">
+                        <!-- Botão Editar - Apenas para ADMIN -->
+                        <a th:href="@{/filial/editar/{id}(id=${filial.id})}"
+                           class="btn-page-edit"
+                           th:if="${#sets.contains(user_logged.cargos.![nome], T(br.com.fiap.find_mottu.model.EnumCargo).ADMIN)}">
+                            <i class="bi bi-pencil me-2"></i>Editar Filial
+                        </a>
+                        <a th:href="@{/filiais}" class="btn-outline-mottu">
+                            <i class="bi bi-arrow-left me-2"></i>Voltar para Lista
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Details Cards -->
+            <div class="row g-4">
+                <!-- Informações da Filial -->
+                <div class="col-lg-6">
+                    <div class="dashboard-card h-100">
+                        <div class="card-header">
+                            <h5 class="card-title mb-0">
+                                <i class="bi bi-building me-2"></i>Informações da Filial
+                            </h5>
+                        </div>
+                        <div class="card-body">
+                            <!-- Header da Filial -->
+                            <div class="profile-header text-center mb-4">
+                                <div class="filial-avatar mb-3">
+                                    <i class="bi bi-building-fill"></i>
+                                </div>
+                                <h4 class="profile-name" th:text="${filial.endereco}">Endereço da Filial</h4>
+                                <p class="user-id-badge">ID: #<span th:text="${filial.id}">123</span></p>
+                            </div>
+
+                            <!-- Dados da Filial -->
+                            <div class="detail-group">
+                                <div class="detail-item">
+                                    <div class="detail-label">
+                                        <i class="bi bi-geo-alt me-2"></i>Endereço Completo
+                                    </div>
+                                    <div class="detail-value" th:text="${filial.endereco}">Endereço da Filial</div>
+                                </div>
+
+                                <div class="detail-item">
+                                    <div class="detail-label">
+                                        <i class="bi bi-people me-2"></i>Total de Usuários
+                                    </div>
+                                    <div class="detail-value">
+                                        <span class="badge cargo-badge-large" th:text="${#lists.size(filial.usuarios)} + ' usuários'">0 usuários</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Usuários da Filial -->
+                <div class="col-lg-6">
+                    <div class="dashboard-card h-100">
+                        <div class="card-header">
+                            <h5 class="card-title mb-0">
+                                <i class="bi bi-people me-2"></i>Usuários da Filial
+                            </h5>
+                        </div>
+                        <div class="card-body">
+                            <div th:if="${#lists.isEmpty(filial.usuarios)}" class="text-center py-4">
+                                <div class="empty-icon">
+                                    <i class="bi bi-person-x"></i>
+                                </div>
+                                <h6 class="empty-title">Nenhum usuário encontrado</h6>
+                                <p class="empty-description">Esta filial ainda não possui usuários associados.</p>
+                            </div>
+
+                            <div th:if="${!#lists.isEmpty(filial.usuarios)}" class="users-list">
+                                <div th:each="usuario : ${filial.usuarios}" class="user-item mb-3 p-3" style="background: rgba(5, 175, 49, 0.05); border-radius: 8px; border-left: 3px solid var(--mottu-green-neon);">
+                                    <div class="d-flex align-items-center justify-content-between">
+                                        <div class="d-flex align-items-center">
+                                            <div class="user-avatar-sm me-2">
+                                                <i class="bi bi-person-circle"></i>
+                                            </div>
+                                            <div>
+                                                <div class="user-name" th:text="${usuario.primeiroNome + ' ' + usuario.sobrenome}">Nome do Usuário</div>
+                                                <small class="user-email" th:text="${usuario.email}">email@example.com</small>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <a th:href="@{/usuario/detalhes/{id}(id=${usuario.id})}" class="btn btn-sm btn-outline-mottu">
+                                                <i class="bi bi-eye me-1"></i>Ver
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Ações Administrativas - Apenas para ADMIN -->
+                            <div class="admin-actions" th:if="${#sets.contains(user_logged.cargos.![nome], T(br.com.fiap.find_mottu.model.EnumCargo).ADMIN)}">
+                                <hr class="my-4">
+                                <h6 class="section-subtitle">
+                                    <i class="bi bi-shield-check me-2"></i>Ações Administrativas
+                                </h6>
+                                <div class="d-grid gap-2">
+                                    <button type="button" class="btn btn-page-delete btn-sm" data-bs-toggle="modal" data-bs-target="#deleteModal">
+                                        <i class="bi bi-trash me-2"></i>Excluir Filial
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de Confirmação de Exclusão -->
+    <div class="modal fade" id="deleteModal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content modal-mottu">
+                <div class="modal-header">
+                    <h5 class="modal-title">
+                        <i class="bi bi-exclamation-triangle me-2"></i>Confirmar Exclusão
+                    </h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <p>Tem certeza que deseja excluir a filial <strong th:text="${filial.endereco}">Endereço</strong>?</p>
+                    <p class="text-warning">
+                        <i class="bi bi-info-circle me-1"></i>
+                        Esta ação não pode ser desfeita e removerá todos os dados associados à filial.
+                    </p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-mottu" data-bs-dismiss="modal">Cancelar</button>
+                    <a th:href="@{/filial/deletar/{id}(id=${filial.id})}" class="btn-page-delete">Excluir</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

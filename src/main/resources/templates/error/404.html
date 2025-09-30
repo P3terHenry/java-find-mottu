@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/head :: head('Página Não Encontrada - Find Mottu')}">
+</head>
+<body>
+    <div class="error-container">
+        <div class="error-content">
+            <!-- Logo -->
+            <div class="error-logo">
+                <img th:src="@{/images/logo.png}" alt="Find Mottu" width="80" height="80">
+            </div>
+
+            <!-- Error Icon -->
+            <div class="error-icon">
+                <i class="bi bi-exclamation-triangle-fill"></i>
+            </div>
+
+            <!-- Error Message -->
+            <h1 class="error-title">Página Não Encontrada</h1>
+            <p class="error-subtitle">A página que você está procurando não existe.</p>
+
+            <div class="error-details">
+                <p class="error-description">
+                    <i class="bi bi-info-circle me-2"></i>
+                    A URL pode estar incorreta ou a página foi removida.
+                    Você será redirecionado automaticamente em <span id="countdown">10</span> segundos.
+                </p>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="error-actions">
+                <a th:href="@{/}" class="btn btn-mottu">
+                    <i class="bi bi-house me-2"></i>Voltar ao Início
+                </a>
+                <button onclick="history.back()" class="btn btn-outline-mottu">
+                    <i class="bi bi-arrow-left me-2"></i>Página Anterior
+                </button>
+            </div>
+
+            <!-- Error Code -->
+            <div class="error-code">
+                <small class="text-muted">Erro 404 - Not Found</small>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let countDown = 10;
+        const countdownElement = document.getElementById('countdown');
+
+        const timer = setInterval(function() {
+            countDown--;
+            countdownElement.textContent = countDown;
+
+            if (countDown <= 0) {
+                clearInterval(timer);
+                window.location.href = '/';
+            }
+        }, 1000);
+    </script>
+
+    <style>
+        .error-container {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+        }
+
+        .error-content {
+            background: rgba(26, 26, 26, 0.95);
+            border: 1px solid var(--mottu-green-dark);
+            border-radius: 20px;
+            padding: 3rem;
+            text-align: center;
+            max-width: 500px;
+            width: 100%;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 20px 60px rgba(5, 175, 49, 0.1);
+        }
+
+        .error-logo {
+            margin-bottom: 2rem;
+        }
+
+        .error-icon {
+            font-size: 4rem;
+            color: #ffc107;
+            margin-bottom: 1.5rem;
+        }
+
+        .error-title {
+            color: #ffffff;
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .error-subtitle {
+            color: #cccccc;
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+        }
+
+        .error-details {
+            background: rgba(255, 193, 7, 0.1);
+            border: 1px solid rgba(255, 193, 7, 0.3);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .error-description {
+            color: #ffffff;
+            margin: 0;
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+
+        .error-actions {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 2rem;
+        }
+
+        .btn-mottu {
+            background: linear-gradient(45deg, var(--mottu-green-dark), var(--mottu-green-neon));
+            color: #ffffff;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            font-weight: 500;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+        }
+
+        .btn-mottu:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(5, 175, 49, 0.3);
+            color: #ffffff;
+            text-decoration: none;
+        }
+
+        .btn-outline-mottu {
+            background: transparent;
+            color: var(--mottu-green-neon);
+            border: 1px solid var(--mottu-green-neon);
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            font-weight: 500;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            cursor: pointer;
+        }
+
+        .btn-outline-mottu:hover {
+            background: var(--mottu-green-neon);
+            color: #000000;
+            transform: translateY(-2px);
+            text-decoration: none;
+        }
+
+        .error-code {
+            color: #ffffff;
+            font-size: 0.85rem;
+        }
+
+        #countdown {
+            color: var(--mottu-green-neon);
+            font-weight: bold;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .error-content {
+                padding: 2rem;
+            }
+
+            .error-title {
+                font-size: 2rem;
+            }
+
+            .error-actions {
+                flex-direction: column;
+            }
+        }
+    </style>
+</body>
+</html>

@@ -1,0 +1,71 @@
+.mottu-card {
+    background: rgba(26, 26, 26, 0.95);
+    border: 1px solid var(--mottu-green-dark);
+    backdrop-filter: blur(10px);
+}
+
+.mottu-logo-container {
+    background: linear-gradient(45deg, var(--mottu-green-dark), var(--mottu-green-neon));
+    border-radius: 15px;
+    padding: 10px;
+}
+
+.form-control {
+    background-color: var(--mottu-dark-gray);
+    border: 2px solid var(--mottu-green-dark);
+    color: #ffffff;
+}
+
+.form-control:focus {
+    background-color: var(--mottu-dark-gray);
+    border-color: var(--mottu-green-neon);
+    box-shadow: 0 0 0 0.2rem rgba(5, 175, 49, 0.25);
+    color: #ffffff;
+}
+
+.form-control::placeholder {
+    color: #aaa;
+}
+
+.form-label {
+    color: var(--mottu-green-neon);
+    font-weight: 600;
+}
+
+.btn-mottu {
+    background: linear-gradient(45deg, var(--mottu-green-dark), var(--mottu-green-neon));
+    border: none;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.btn-mottu:hover {
+    background: linear-gradient(45deg, var(--mottu-green-darker), var(--mottu-green-dark));
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(5, 175, 49, 0.3);
+}
+
+.alert-success {
+    background-color: var(--mottu-green-dark);
+    border-color: var(--mottu-green-neon);
+    color: #ffffff;
+}
+
+.alert-danger {
+    background-color: #dc3545;
+    border-color: #ff6b6b;
+    color: #ffffff;
+}
+
+.text-mottu {
+    color: var(--mottu-green-neon);
+}
+
+.text-mottu-light {
+    color: #cccccc;
+}
+
+.card-title {
+    color: #ffffff;
+}

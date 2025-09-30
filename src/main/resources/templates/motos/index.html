@@ -1,0 +1,297 @@
+<!doctype html>
+<html lang="pt-br" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/head :: head('Motos - Find Mottu')}">
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-mottu fixed-top">
+        <div class="container-fluid">
+            <div class="navbar-brand d-flex align-items-center">
+                <div class="me-2">
+                    <img th:src="@{/images/logo.png}" alt="Find Mottu" width="48" height="48">
+                </div>
+                <span class="fw-bold text-white">Find Mottu</span>
+            </div>
+
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/dashboard}"><i class="bi bi-speedometer2 me-1"></i>Dashboard</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" th:href="@{/motos}"><i class="bi bi-bicycle me-1"></i>Motos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/filiais}"><i class="bi bi-building me-1"></i>Filiais</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/usuarios}"><i class="bi bi-people me-1"></i>Usuários</a>
+                    </li>
+                </ul>
+
+                <div class="navbar-nav">
+                    <div class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" role="button" data-bs-toggle="dropdown">
+                            <div class="user-avatar me-2">
+                                <i class="bi bi-person-circle"></i>
+                            </div>
+                            <span th:text="${user_logged.primeiroNome + ' ' + user_logged.sobrenome}">Usuário</span>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end dropdown-mottu">
+                            <li><a class="dropdown-item" th:href="@{/logout}"><i class="bi bi-box-arrow-right me-2"></i>Sair</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <div class="container-fluid">
+            <!-- Page Header -->
+            <div class="page-header">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <h1 class="page-title">
+                            <i class="bi bi-bicycle me-2"></i>Gerenciar Motos
+                        </h1>
+                        <p class="page-subtitle">Visualize e gerencie todas as motos da frota</p>
+                    </div>
+                    <!-- Botão Nova Moto -->
+                    <div>
+                        <a th:href="@{/moto/nova}" class="btn btn-mottu">
+                            <i class="bi bi-bicycle me-2"></i>Nova Moto
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Mensagens de Sucesso/Erro -->
+            <div th:if="${sucesso}" class="alert alert-success alert-dismissible fade show" role="alert">
+                <i class="bi bi-check-circle-fill me-2"></i>
+                <span th:text="${sucesso}"></span>
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            </div>
+
+            <div th:if="${erro}" class="alert alert-danger alert-dismissible fade show" role="alert">
+                <i class="bi bi-exclamation-triangle-fill me-2"></i>
+                <span th:text="${erro}"></span>
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            </div>
+
+            <!-- Estatísticas -->
+            <div class="row mb-4">
+                <div class="col-md-3">
+                    <div class="stat-card">
+                        <div class="stat-icon bg-primary">
+                            <i class="bi bi-bicycle"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3 th:text="${totalMotos}">0</h3>
+                            <p>Total de Motos</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="stat-card">
+                        <div class="stat-icon bg-success">
+                            <i class="bi bi-check-circle"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3 th:text="${motosAtivas}">0</h3>
+                            <p>Motos Ativas</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="stat-card">
+                        <div class="stat-icon bg-secondary">
+                            <i class="bi bi-pause-circle"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3 th:text="${motosInativas}">0</h3>
+                            <p>Motos Inativas</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="stat-card">
+                        <div class="stat-icon bg-warning">
+                            <i class="bi bi-tools"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3 th:text="${motosManutencao}">0</h3>
+                            <p>Em Manutenção</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Motos Grid Container -->
+            <div class="row">
+                <div class="col-12">
+                    <div class="users-table-container">
+                        <!-- Header -->
+                        <div class="users-table-header">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <h5 class="table-title">
+                                    <i class="bi bi-list"></i>Estacionamento de Motos
+                                </h5>
+                                <div class="search-container">
+                                    <form th:action="@{/motos}" method="get" class="d-flex gap-2">
+                                        <input type="text" class="search-input" placeholder="Buscar por placa, modelo..." name="search" th:value="${filtroSearch}" id="searchInput">
+                                        <select name="status" class="form-select" style="max-width: 120px;">
+                                            <option value="">Status</option>
+                                            <option th:each="statusOption : ${statusOptions}"
+                                                    th:value="${statusOption.name()}"
+                                                    th:text="${statusOption.descricao}"
+                                                    th:selected="${filtroStatus != null && filtroStatus.name() == statusOption.name()}">
+                                            </option>
+                                        </select>
+                                        <select name="filial" class="form-select" style="max-width: 150px;">
+                                            <option value="">Filial</option>
+                                            <option th:each="filial : ${filiais}"
+                                                    th:value="${filial.id}"
+                                                    th:text="'ID: ' + ${filial.id}"
+                                                    th:selected="${filtroFilial == filial.id}">
+                                            </option>
+                                        </select>
+                                        <button type="submit" class="btn btn-outline-mottu btn-sm">
+                                            <i class="bi bi-search"></i>
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Controles da Grid -->
+                        <div class="table-controls">
+                            <div class="results-info">
+                                <i class="bi bi-bicycle me-2"></i>
+                                Mostrando <span class="results-count" th:text="${#lists.size(motos)}">0</span> motos
+                            </div>
+                        </div>
+
+                        <!-- Grid de Motos -->
+                        <div class="motos-grid" th:if="${!motos.isEmpty()}">
+                            <div class="moto-card" th:each="moto : ${motos}">
+                                <!-- Status Badge -->
+                                <div class="moto-status-badge"
+                                     th:classappend="${moto.statusMoto.name() == 'ATIVA'} ? 'status-ativa' : (${moto.statusMoto.name() == 'INATIVA'} ? 'status-inativa' : (${moto.statusMoto.name() == 'MANUTENCAO'} ? 'status-manutencao' : 'status-reservada'))">
+                                    <span th:text="${moto.statusMoto.descricao}">Status</span>
+                                </div>
+
+                                <!-- Ícone da Moto -->
+                                <div class="moto-icon">
+                                    <i class="bi bi-bicycle"></i>
+                                </div>
+
+                                <!-- Informações da Moto -->
+                                <div class="moto-info">
+                                    <h6 class="moto-placa" th:text="${moto.placaMoto}">ABC-1234</h6>
+                                    <p class="moto-modelo" th:text="${moto.modeloMoto}">Honda CG 160</p>
+
+                                    <div class="moto-details">
+                                        <small class="text-muted d-block">
+                                            <strong>Filial:</strong> <span th:text="${moto.filial.endereco}">Endereço</span>
+                                        </small>
+                                        <small class="text-muted d-block">
+                                            <strong>QR:</strong> <span th:text="${moto.idQrCode}">QR123</span>
+                                        </small>
+                                        <small class="text-muted d-block">
+                                            <strong>Chassi:</strong>
+                                            <span th:text="${#strings.length(moto.numChassi) > 8 ? '...' + #strings.substring(moto.numChassi, #strings.length(moto.numChassi) - 6) : moto.numChassi}">...234567</span>
+                                        </small>
+                                    </div>
+                                </div>
+
+                                <!-- Ações da Moto -->
+                                <div class="action-buttons">
+                                    <a th:href="@{/moto/detalhes/{id}(id=${moto.id})}" class="btn btn-action btn-details" title="Ver Detalhes">
+                                        <i class="bi bi-eye"></i>
+                                    </a>
+                                    <a th:href="@{/moto/editar/{id}(id=${moto.id})}" class="btn btn-action btn-edit" title="Editar">
+                                        <i class="bi bi-pencil"></i>
+                                    </a>
+                                    <button type="button" class="btn btn-action btn-delete" title="Excluir"
+                                            data-bs-toggle="modal" data-bs-target="#deleteModal"
+                                            th:data-moto-id="${moto.id}"
+                                            th:data-moto-placa="${moto.placaMoto}">
+                                        <i class="bi bi-trash"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Mensagem quando não há motos -->
+                        <div th:if="${motos.isEmpty()}" class="empty-state">
+                            <div class="empty-icon">
+                                <i class="bi bi-bicycle"></i>
+                            </div>
+                            <h4>Nenhuma moto encontrada</h4>
+                            <p class="text-muted">
+                                <span th:if="${filtroSearch != null or filtroStatus != null or filtroFilial != null}">
+                                    Nenhuma moto corresponde aos filtros aplicados.
+                                </span>
+                                <span th:unless="${filtroSearch != null or filtroStatus != null or filtroFilial != null}">
+                                    Comece cadastrando a primeira moto da sua frota.
+                                </span>
+                            </p>
+                            <a th:href="@{/moto/nova}" class="btn btn-mottu">
+                                <i class="bi bi-plus-circle me-2"></i>
+                                Cadastrar Primeira Moto
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de Confirmação para Exclusão -->
+    <div class="modal fade" id="deleteModal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content modal-mottu">
+                <div class="modal-header">
+                    <h5 class="modal-title text-mottu">
+                        <i class="bi bi-exclamation-triangle me-2"></i>Confirmar Exclusão
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <p>Tem certeza que deseja excluir a moto <strong id="motoPlaca" class="text-mottu"></strong>?</p>
+                    <div class="alert alert-warning">
+                        <i class="bi bi-exclamation-triangle me-2"></i>
+                        Esta ação não pode ser desfeita.
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-mottu" data-bs-dismiss="modal">Cancelar</button>
+                    <a id="deleteConfirmBtn" href="#" class="btn-page-delete">Excluir</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const deleteModal = document.getElementById('deleteModal');
+    const motoPlacaElement = document.getElementById('motoPlaca');
+    const deleteConfirmBtn = document.getElementById('deleteConfirmBtn');
+
+    deleteModal.addEventListener('show.bs.modal', function (event) {
+        const button = event.relatedTarget;
+        const motoId = button.getAttribute('data-moto-id');
+        const motoPlaca = button.getAttribute('data-moto-placa');
+
+        motoPlacaElement.textContent = motoPlaca;
+        deleteConfirmBtn.href = '/moto/deletar/' + motoId;
+    });
+});
+</script>

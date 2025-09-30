@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/head :: head('Acesso Negado - Find Mottu')}">
+</head>
+<body>
+    <div class="error-container">
+        <div class="error-content">
+            <!-- Logo -->
+            <div class="error-logo">
+                <img th:src="@{/images/logo.png}" alt="Find Mottu" width="80" height="80">
+            </div>
+
+            <!-- Error Icon -->
+            <div class="error-icon">
+                <i class="bi bi-shield-x"></i>
+            </div>
+
+            <!-- Error Message -->
+            <h1 class="error-title">Acesso Negado</h1>
+            <p class="error-subtitle">Você não tem permissão para acessar esta página.</p>
+
+            <div class="error-details">
+                <p class="error-description">
+                    <i class="bi bi-info-circle me-2"></i>
+                    Esta área é restrita a usuários com cargos específicos.
+                    Entre em contato com seu administrador se acredita que deveria ter acesso.
+                </p>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="error-actions">
+                <a th:href="@{/dashboard}" class="btn btn-mottu">
+                    <i class="bi bi-house me-2"></i>Voltar ao Dashboard
+                </a>
+                <a th:href="@{/logout}" class="btn btn-outline-mottu">
+                    <i class="bi bi-box-arrow-right me-2"></i>Fazer Logout
+                </a>
+            </div>
+
+            <!-- Error Code -->
+            <div class="error-code">
+                <small class="text-muted">Erro 403 - Forbidden</small>
+            </div>
+        </div>
+    </div>
+
+    <style>
+        .error-container {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+        }
+
+        .error-content {
+            background: rgba(26, 26, 26, 0.95);
+            border: 1px solid var(--mottu-green-dark);
+            border-radius: 20px;
+            padding: 3rem;
+            text-align: center;
+            max-width: 500px;
+            width: 100%;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 20px 60px rgba(5, 175, 49, 0.1);
+        }
+
+        .error-logo {
+            margin-bottom: 2rem;
+        }
+
+        .error-icon {
+            font-size: 4rem;
+            color: #dc3545;
+            margin-bottom: 1.5rem;
+        }
+
+        .error-title {
+            color: #ffffff;
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .error-subtitle {
+            color: #cccccc;
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+        }
+
+        .error-details {
+            background: rgba(220, 53, 69, 0.1);
+            border: 1px solid rgba(220, 53, 69, 0.3);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .error-description {
+            color: #ffffff;
+            margin: 0;
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+
+        .error-actions {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 2rem;
+        }
+
+        .btn-mottu {
+            background: linear-gradient(45deg, var(--mottu-green-dark), var(--mottu-green-neon));
+            color: #ffffff;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            font-weight: 500;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+        }
+
+        .btn-mottu:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(5, 175, 49, 0.3);
+            color: #ffffff;
+            text-decoration: none;
+        }
+
+        .btn-outline-mottu {
+            background: transparent;
+            color: var(--mottu-green-neon);
+            border: 1px solid var(--mottu-green-neon);
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            font-weight: 500;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+        }
+
+        .btn-outline-mottu:hover {
+            background: var(--mottu-green-neon);
+            color: #000000;
+            transform: translateY(-2px);
+            text-decoration: none;
+        }
+
+        .error-code {
+            color: #ffffff;
+            font-size: 0.85rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .error-content {
+                padding: 2rem;
+            }
+
+            .error-title {
+                font-size: 2rem;
+            }
+
+            .error-actions {
+                flex-direction: column;
+            }
+        }
+    </style>
+</body>
+</html>

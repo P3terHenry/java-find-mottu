@@ -1,0 +1,181 @@
+<!doctype html>
+<html lang="pt-br" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/head :: head('Dashboard - Find Mottu')}">
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-mottu fixed-top">
+        <div class="container-fluid">
+            <div class="navbar-brand d-flex align-items-center">
+                <div class="me-2">
+                    <img th:src="@{/images/logo.png}" alt="Find Mottu" width="48" height="48">
+                </div>
+                <span class="fw-bold text-white">Find Mottu</span>
+            </div>
+
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" th:href="@{/dashboard}"><i class="bi bi-speedometer2 me-1"></i>Dashboard</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/motos}"><i class="bi bi-bicycle me-1"></i>Motos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/filiais}"><i class="bi bi-building me-1"></i>Filiais</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/usuarios}"><i class="bi bi-people me-1"></i>Usuários</a>
+                    </li>
+                </ul>
+
+                <div class="navbar-nav">
+                    <div class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" role="button" data-bs-toggle="dropdown">
+                            <div class="user-avatar me-2">
+                                <i class="bi bi-person-circle"></i>
+                            </div>
+                            <span th:text="${user_logged.primeiroNome + ' ' + user_logged.sobrenome}">Usuário</span>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end dropdown-mottu">
+                            <li><a class="dropdown-item" th:href="@{/logout}"><i class="bi bi-box-arrow-right me-2"></i>Sair</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <div class="container-fluid">
+            <!-- Page Header -->
+            <div class="page-header">
+                <h1 class="page-title">
+                    <i class="bi bi-speedometer2 me-2"></i>Dashboard
+                </h1>
+                <p class="page-subtitle">Bem-vindo de volta, <span class="text-mottu" th:text="${user_logged.primeiroNome}">Usuário</span>!</p>
+            </div>
+
+            <!-- Stats Cards -->
+            <div class="row g-4 mb-4">
+                <div class="col-md-6 col-xl-4">
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="bi bi-bicycle"></i>
+                        </div>
+                        <div class="stat-content">
+                            <div class="stat-title">Total de Motos</div>
+                            <div class="stat-value" th:text="${total_motos}">0</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6 col-xl-4">
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="bi bi-building"></i>
+                        </div>
+                        <div class="stat-content">
+                            <div class="stat-title">Total de Filiais</div>
+                            <div class="stat-value" th:text="${total_filiais}">0</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6 col-xl-4">
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="bi bi-people"></i>
+                        </div>
+                        <div class="stat-content">
+                            <div class="stat-title">Usuários Ativos</div>
+                            <div class="stat-value" th:text="${total_usuarios}">0</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quick Actions -->
+            <div class="row g-4">
+                <div class="col-lg-8">
+                    <div class="dashboard-card">
+                        <div class="card-header">
+                            <h5 class="card-title mb-0">
+                                <i class="bi bi-lightning me-2"></i>Ações Rápidas
+                            </h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="row g-3">
+                                <div class="col-md-6">
+                                    <a th:href="@{/moto/nova}" class="quick-action-btn">
+                                        <i class="bi bi-plus-circle"></i>
+                                        <span>Nova Moto</span>
+                                    </a>
+                                </div>
+                                <!-- Botão Nova Filial - Apenas para ADMIN -->
+                                <div class="col-md-6" th:if="${#sets.contains(user_logged.cargos.![nome], T(br.com.fiap.find_mottu.model.EnumCargo).ADMIN)}">
+                                    <a th:href="@{/filial/nova}" class="quick-action-btn">
+                                        <i class="bi bi-building-add"></i>
+                                        <span>Nova Filial</span>
+                                    </a>
+                                </div>
+                                <!-- Botão Novo Usuário - Apenas para ADMIN -->
+                                <div class="col-md-6" th:if="${#sets.contains(user_logged.cargos.![nome], T(br.com.fiap.find_mottu.model.EnumCargo).ADMIN)}">
+                                    <a th:href="@{/usuario/novo}" class="quick-action-btn">
+                                        <i class="bi bi-person-plus"></i>
+                                        <span>Novo Usuário</span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4">
+                    <div class="dashboard-card">
+                        <div class="card-header">
+                            <h5 class="card-title mb-0">
+                                <i class="bi bi-clock me-2"></i>Atividades Recentes
+                            </h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="activity-item">
+                                <div class="activity-icon">
+                                    <i class="bi bi-bicycle text-success"></i>
+                                </div>
+                                <div class="activity-content">
+                                    <p class="activity-text">Nova moto cadastrada</p>
+                                    <small class="activity-time">2 minutos atrás</small>
+                                </div>
+                            </div>
+                            <div class="activity-item">
+                                <div class="activity-icon">
+                                    <i class="bi bi-building text-info"></i>
+                                </div>
+                                <div class="activity-content">
+                                    <p class="activity-text">Filial atualizada</p>
+                                    <small class="activity-time">15 minutos atrás</small>
+                                </div>
+                            </div>
+                            <div class="activity-item">
+                                <div class="activity-icon">
+                                    <i class="bi bi-person text-warning"></i>
+                                </div>
+                                <div class="activity-content">
+                                    <p class="activity-text">Novo usuário registrado</p>
+                                    <small class="activity-time">1 hora atrás</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

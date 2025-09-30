@@ -1,0 +1,294 @@
+/* Navbar Styles */
+.navbar-mottu {
+    background: linear-gradient(135deg, var(--mottu-black) 0%, var(--mottu-dark-gray) 100%);
+    border-bottom: 2px solid var(--mottu-green-dark);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 2px 20px rgba(5, 175, 49, 0.1);
+}
+
+.navbar-mottu .nav-link {
+    color: #ffffff !important;
+    font-weight: 500;
+    padding: 0.75rem 1rem;
+    border-radius: 8px;
+    margin: 0 0.25rem;
+    transition: all 0.3s ease;
+}
+
+.navbar-mottu .nav-link:hover,
+.navbar-mottu .nav-link.active {
+    background: linear-gradient(45deg, var(--mottu-green-dark), var(--mottu-green-neon));
+    color: #ffffff !important;
+    transform: translateY(-1px);
+}
+
+.navbar-toggler {
+    border: 1px solid var(--mottu-green-neon);
+    color: var(--mottu-green-neon);
+}
+
+.navbar-toggler:focus {
+    box-shadow: 0 0 0 0.25rem rgba(5, 175, 49, 0.25);
+}
+
+.user-avatar {
+    font-size: 1.5rem;
+    color: var(--mottu-green-neon);
+}
+
+.dropdown-mottu {
+    background: rgba(26, 26, 26, 0.95);
+    border: 1px solid var(--mottu-green-dark);
+    border-radius: 8px;
+    backdrop-filter: blur(10px);
+}
+
+.dropdown-mottu .dropdown-item {
+    color: #ffffff;
+    padding: 0.75rem 1.25rem;
+    transition: all 0.3s ease;
+}
+
+.dropdown-mottu .dropdown-item:hover {
+    background: linear-gradient(45deg, var(--mottu-green-dark), var(--mottu-green-neon));
+    color: #ffffff;
+}
+
+.dropdown-divider {
+    border-top-color: var(--mottu-green-dark);
+}
+
+/* Main Content */
+.main-content {
+    margin-top: 80px;
+    padding: 2rem 0;
+    min-height: calc(100vh - 80px);
+}
+
+/* Page Header */
+.page-header {
+    margin-bottom: 2rem;
+    padding: 2rem 0;
+    border-bottom: 1px solid rgba(5, 175, 49, 0.2);
+}
+
+.page-title {
+    color: #ffffff;
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    display: flex;
+    align-items: center;
+}
+
+.page-subtitle {
+    color: #cccccc;
+    font-size: 1.1rem;
+    margin-bottom: 0;
+}
+
+/* Stats Cards */
+.stat-card {
+    background: rgba(26, 26, 26, 0.95);
+    border: 1px solid var(--mottu-green-dark);
+    border-radius: 16px;
+    padding: 2rem;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    backdrop-filter: blur(10px);
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.stat-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(45deg, var(--mottu-green-dark), var(--mottu-green-neon));
+}
+
+.stat-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(5, 175, 49, 0.2);
+    border-color: var(--mottu-green-neon);
+}
+
+.stat-icon {
+    width: 60px;
+    height: 60px;
+    background: linear-gradient(45deg, var(--mottu-green-dark), var(--mottu-green-neon));
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    color: #ffffff;
+    flex-shrink: 0;
+}
+
+.stat-content {
+    flex: 1;
+}
+
+.stat-title {
+    font-size: 0.9rem;
+    color: #cccccc;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.stat-value {
+    font-size: 2.5rem;
+    color: var(--mottu-green-neon);
+    font-weight: 700;
+    line-height: 1;
+}
+
+/* Dashboard Cards */
+.dashboard-card {
+    background: rgba(26, 26, 26, 0.95);
+    border: 1px solid var(--mottu-green-dark);
+    border-radius: 16px;
+    backdrop-filter: blur(10px);
+    height: 100%;
+    overflow: hidden;
+}
+
+.dashboard-card .card-header {
+    background: linear-gradient(45deg, var(--mottu-green-dark), var(--mottu-green-neon));
+    border: none;
+    padding: 1.5rem;
+}
+
+.dashboard-card .card-title {
+    color: #ffffff;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+}
+
+.dashboard-card .card-body {
+    padding: 2rem;
+}
+
+/* Quick Action Buttons */
+.quick-action-btn {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1.25rem;
+    background: rgba(5, 175, 49, 0.1);
+    border: 1px solid var(--mottu-green-dark);
+    border-radius: 12px;
+    color: #ffffff;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    font-weight: 500;
+}
+
+.quick-action-btn i {
+    font-size: 1.5rem;
+    color: var(--mottu-green-neon);
+}
+
+.quick-action-btn:hover {
+    background: linear-gradient(45deg, var(--mottu-green-dark), var(--mottu-green-neon));
+    transform: translateY(-2px);
+    box-shadow: 0 5px 20px rgba(5, 175, 49, 0.3);
+    color: #ffffff;
+    text-decoration: none;
+}
+
+.quick-action-btn:hover i {
+    color: #ffffff;
+}
+
+/* Activity Items */
+.activity-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    padding: 1rem 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.activity-item:last-child {
+    border-bottom: none;
+}
+
+.activity-icon {
+    width: 40px;
+    height: 40px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    flex-shrink: 0;
+}
+
+.activity-content {
+    flex: 1;
+}
+
+.activity-text {
+    color: #ffffff;
+    margin-bottom: 0.25rem;
+    font-size: 0.9rem;
+}
+
+.activity-time {
+    color: #cccccc;
+    font-size: 0.8rem;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .main-content {
+        margin-top: 70px;
+        padding: 1rem 0;
+    }
+
+    .page-title {
+        font-size: 2rem;
+    }
+
+    .stat-card {
+        padding: 1.5rem;
+    }
+
+    .stat-value {
+        font-size: 2rem;
+    }
+
+    .dashboard-card .card-body {
+        padding: 1.5rem;
+    }
+}
+
+/* Legacy styles compatibility */
+.dashboard-container {
+    max-width: 100%;
+    margin: 0;
+    background: transparent;
+    border-radius: 0;
+    box-shadow: none;
+    padding: 0;
+}
+
+.dashboard-header {
+    display: none; /* Hidden as we now use the navbar */
+}
+
+.dashboard-stats {
+    display: none; /* Hidden as we now use the new stats cards */
+}

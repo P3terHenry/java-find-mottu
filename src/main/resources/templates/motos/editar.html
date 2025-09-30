@@ -1,0 +1,281 @@
+<!doctype html>
+<html lang="pt-br" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/head :: head('Editar Moto - Find Mottu')}">
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-mottu fixed-top">
+        <div class="container-fluid">
+            <div class="navbar-brand d-flex align-items-center">
+                <div class="me-2">
+                    <img th:src="@{/images/logo.png}" alt="Find Mottu" width="48" height="48">
+                </div>
+                <span class="fw-bold text-white">Find Mottu</span>
+            </div>
+
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/dashboard}"><i class="bi bi-speedometer2 me-1"></i>Dashboard</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" th:href="@{/motos}"><i class="bi bi-bicycle me-1"></i>Motos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/filiais}"><i class="bi bi-building me-1"></i>Filiais</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/usuarios}"><i class="bi bi-people me-1"></i>Usuários</a>
+                    </li>
+                </ul>
+
+                <div class="navbar-nav">
+                    <div class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" role="button" data-bs-toggle="dropdown">
+                            <div class="user-avatar me-2">
+                                <i class="bi bi-person-circle"></i>
+                            </div>
+                            <span th:text="${user_logged.primeiroNome + ' ' + user_logged.sobrenome}">Usuário</span>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end dropdown-mottu">
+                            <li><a class="dropdown-item" th:href="@{/logout}"><i class="bi bi-box-arrow-right me-2"></i>Sair</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <div class="container-fluid">
+            <!-- Page Header -->
+            <div class="page-header">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <h1 class="page-title">
+                            <i class="bi bi-pencil me-2"></i>Editar Moto
+                        </h1>
+                        <p class="page-subtitle">Atualize as informações da moto <strong th:text="${moto.placaMoto}">Placa</strong></p>
+                    </div>
+                    <div class="d-flex gap-2">
+                        <a th:href="@{/moto/detalhes/{id}(id=${moto.id})}" class="btn-page-details">
+                            <i class="bi bi-eye me-2"></i>Ver Detalhes
+                        </a>
+                        <a th:href="@{/motos}" class="btn-outline-mottu">
+                            <i class="bi bi-arrow-left me-2"></i>Voltar para Lista
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Form Card -->
+            <div class="row justify-content-center">
+                <div class="col-lg-8 col-xl-6">
+                    <div class="dashboard-card">
+                        <div class="card-header">
+                            <h5 class="card-title mb-0">
+                                <i class="bi bi-bicycle me-2"></i>Atualizar Dados da Moto
+                            </h5>
+                        </div>
+                        <div class="card-body">
+                            <!-- Formulário -->
+                            <form th:action="@{/moto/editar/{id}(id=${moto.id})}" method="post" th:object="${moto}" class="user-form">
+
+                                <!-- Informações Básicas -->
+                                <div class="form-section">
+                                    <h6 class="section-title">
+                                        <i class="bi bi-info-circle me-2"></i>Informações Básicas
+                                    </h6>
+
+                                    <div class="row">
+                                        <div class="col-md-6 mb-3">
+                                            <label for="placaMoto" class="form-label">
+                                                <i class="bi bi-card-text me-1"></i>Placa da Moto *
+                                            </label>
+                                            <input type="text"
+                                                   class="form-control form-mottu"
+                                                   th:class="${#fields.hasErrors('placaMoto')} ? 'form-control form-mottu is-invalid' : 'form-control form-mottu'"
+                                                   id="placaMoto"
+                                                   th:field="*{placaMoto}"
+                                                   placeholder="ABC-1234">
+                                            <div class="invalid-feedback" th:if="${#fields.hasErrors('placaMoto')}" th:errors="*{placaMoto}">
+                                                Erro na placa
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-6 mb-3">
+                                            <label for="modeloMoto" class="form-label">
+                                                <i class="bi bi-gear me-1"></i>Modelo da Moto *
+                                            </label>
+                                            <input type="text"
+                                                   class="form-control form-mottu"
+                                                   th:class="${#fields.hasErrors('modeloMoto')} ? 'form-control form-mottu is-invalid' : 'form-control form-mottu'"
+                                                   id="modeloMoto"
+                                                   th:field="*{modeloMoto}"
+                                                   placeholder="Honda CG 160">
+                                            <div class="invalid-feedback" th:if="${#fields.hasErrors('modeloMoto')}" th:errors="*{modeloMoto}">
+                                                Erro no modelo
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-md-6 mb-3">
+                                            <label for="statusMoto" class="form-label">
+                                                <i class="bi bi-toggle-on me-1"></i>Status da Moto *
+                                            </label>
+                                            <select class="form-select form-mottu"
+                                                    th:class="${#fields.hasErrors('statusMoto')} ? 'form-select form-mottu is-invalid' : 'form-select form-mottu'"
+                                                    id="statusMoto"
+                                                    th:field="*{statusMoto}"
+                                                    required>
+                                                <option value="">Selecione o status</option>
+                                                <option th:each="status : ${T(br.com.fiap.find_mottu.model.EnumStatusMoto).values()}"
+                                                        th:value="${status}"
+                                                        th:text="${status.descricao}"
+                                                        th:selected="${status == moto.statusMoto}">
+                                                    Status
+                                                </option>
+                                            </select>
+                                            <div class="invalid-feedback" th:if="${#fields.hasErrors('statusMoto')}" th:errors="*{statusMoto}">
+                                                Erro no status
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-6 mb-3">
+                                            <label for="filial" class="form-label">
+                                                <i class="bi bi-building me-1"></i>Filial *
+                                            </label>
+                                            <select class="form-select form-mottu"
+                                                    th:class="${#fields.hasErrors('filial')} ? 'form-select form-mottu is-invalid' : 'form-select form-mottu'"
+                                                    id="filial"
+                                                    th:field="*{filial}"
+                                                    required>
+                                                <option value="">Selecione uma filial</option>
+                                                <option th:each="filial : ${filiais}"
+                                                        th:value="${filial.id}"
+                                                        th:text="'ID: ' + ${filial.id} + ' - ' + ${filial.endereco}"
+                                                        th:selected="${filial.id == moto.filial.id}">
+                                                    Filial
+                                                </option>
+                                            </select>
+                                            <div class="invalid-feedback" th:if="${#fields.hasErrors('filial')}" th:errors="*{filial}">
+                                                Erro na filial
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Informações Técnicas -->
+                                <div class="form-section">
+                                    <h6 class="section-title">
+                                        <i class="bi bi-cpu me-2"></i>Informações Técnicas
+                                    </h6>
+
+                                    <div class="row">
+                                        <div class="col-md-6 mb-3">
+                                            <label for="idQrCode" class="form-label">
+                                                <i class="bi bi-qr-code me-1"></i>ID do QR Code *
+                                            </label>
+                                            <input type="text"
+                                                   class="form-control form-mottu"
+                                                   th:class="${#fields.hasErrors('idQrCode')} ? 'form-control form-mottu is-invalid' : 'form-control form-mottu'"
+                                                   id="idQrCode"
+                                                   th:field="*{idQrCode}"
+                                                   placeholder="QR123456">
+                                            <div class="invalid-feedback" th:if="${#fields.hasErrors('idQrCode')}" th:errors="*{idQrCode}">
+                                                Erro no QR Code
+                                            </div>
+                                            <small class="form-text text-muted">
+                                                <i class="bi bi-info-circle me-1"></i>
+                                                Código único do QR da moto
+                                            </small>
+                                        </div>
+
+                                        <div class="col-md-6 mb-3">
+                                            <label for="idImei" class="form-label">
+                                                <i class="bi bi-phone me-1"></i>IMEI do Dispositivo *
+                                            </label>
+                                            <input type="number"
+                                                   class="form-control form-mottu"
+                                                   th:class="${#fields.hasErrors('idImei')} ? 'form-control form-mottu is-invalid' : 'form-control form-mottu'"
+                                                   id="idImei"
+                                                   th:field="*{idImei}"
+                                                   placeholder="123456789012345">
+                                            <div class="invalid-feedback" th:if="${#fields.hasErrors('idImei')}" th:errors="*{idImei}">
+                                                Erro no IMEI
+                                            </div>
+                                            <small class="form-text text-muted">
+                                                <i class="bi bi-info-circle me-1"></i>
+                                                15 dígitos do IMEI
+                                            </small>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-md-6 mb-3">
+                                            <label for="numChassi" class="form-label">
+                                                <i class="bi bi-hash me-1"></i>Número do Chassi *
+                                            </label>
+                                            <input type="text"
+                                                   class="form-control form-mottu"
+                                                   th:class="${#fields.hasErrors('numChassi')} ? 'form-control form-mottu is-invalid' : 'form-control form-mottu'"
+                                                   id="numChassi"
+                                                   th:field="*{numChassi}"
+                                                   placeholder="9BD12345678901234">
+                                            <div class="invalid-feedback" th:if="${#fields.hasErrors('numChassi')}" th:errors="*{numChassi}">
+                                                Erro no número do chassi
+                                            </div>
+                                            <small class="form-text text-muted">
+                                                <i class="bi bi-info-circle me-1"></i>
+                                                17 caracteres alfanuméricos
+                                            </small>
+                                        </div>
+
+                                        <div class="col-md-6 mb-3">
+                                            <label for="numMotor" class="form-label">
+                                                <i class="bi bi-wrench me-1"></i>Número do Motor *
+                                            </label>
+                                            <input type="number"
+                                                   class="form-control form-mottu"
+                                                   th:class="${#fields.hasErrors('numMotor')} ? 'form-control form-mottu is-invalid' : 'form-control form-mottu'"
+                                                   id="numMotor"
+                                                   th:field="*{numMotor}"
+                                                   placeholder="987654321">
+                                            <div class="invalid-feedback" th:if="${#fields.hasErrors('numMotor')}" th:errors="*{numMotor}">
+                                                Erro no número do motor
+                                            </div>
+                                            <small class="form-text text-muted">
+                                                <i class="bi bi-info-circle me-1"></i>
+                                                Número de identificação do motor
+                                            </small>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Botões -->
+                                <div class="form-actions">
+                                    <button type="submit" class="btn btn-mottu btn-lg">
+                                        <i class="bi bi-check-circle me-2"></i>Salvar Alterações
+                                    </button>
+                                    <a th:href="@{/moto/detalhes/{id}(id=${moto.id})}" class="btn btn-page-details btn-lg">
+                                        <i class="bi bi-eye me-2"></i>Ver Detalhes
+                                    </a>
+                                    <a th:href="@{/motos}" class="btn btn-outline-mottu btn-lg">
+                                        <i class="bi bi-x-circle me-2"></i>Cancelar
+                                    </a>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
