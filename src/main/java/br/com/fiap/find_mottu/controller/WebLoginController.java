@@ -14,16 +14,16 @@ public class WebLoginController {
 
     @GetMapping("/login")
     public ModelAndView viewLogin() {
-        return new ModelAndView("/auth/login");
+        return new ModelAndView("auth/login");
     }
 
     @GetMapping("/forbidden")
     public ModelAndView viewForbidden() {
-        return new ModelAndView("/error/forbidden");
+        return new ModelAndView("error/forbidden");
     }
 
     @GetMapping("/error")
     public ModelAndView viewError() {
-        return new ModelAndView("/error/404");
+        return new ModelAndView("error/404");
     }
 }

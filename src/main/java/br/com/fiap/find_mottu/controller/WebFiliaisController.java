@@ -34,7 +34,7 @@ public class WebFiliaisController {
     @GetMapping("/filiais")
     public ModelAndView viewFiliais() {
 
-        ModelAndView mv = new ModelAndView("/filiais/index");
+        ModelAndView mv = new ModelAndView("filiais/index");
 
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         Optional<Usuario> op = usuarioRepository.findByEmail(auth.getName());
@@ -54,7 +54,7 @@ public class WebFiliaisController {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         Optional<Usuario> op = usuarioRepository.findByEmail(auth.getName());
 
-        ModelAndView mv = new ModelAndView("/filiais/nova");
+        ModelAndView mv = new ModelAndView("filiais/nova");
 
         if (op.isPresent()) {
             mv.addObject("user_logged", op.get());
@@ -70,7 +70,7 @@ public class WebFiliaisController {
 
         // Se houver erros de validação, retornar para o formulário
         if (bindingResult.hasErrors()) {
-            ModelAndView mv = new ModelAndView("/filiais/nova");
+            ModelAndView mv = new ModelAndView("filiais/nova");
 
             // Adicionar o usuário logado
             Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -99,7 +99,7 @@ public class WebFiliaisController {
 
         } catch (Exception e) {
             // Em caso de erro, retornar para o formulário com mensagem de erro
-            ModelAndView mv = new ModelAndView("/filiais/nova");
+            ModelAndView mv = new ModelAndView("filiais/nova");
 
             // Adicionar o usuário logado
             Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -122,7 +122,7 @@ public class WebFiliaisController {
 
         if (optionalFilial.isPresent()) {
 
-            ModelAndView mv = new ModelAndView("/filiais/detalhes");
+            ModelAndView mv = new ModelAndView("filiais/detalhes");
 
             Authentication auth = SecurityContextHolder.getContext().getAuthentication();
             Optional<Usuario> optionalUsuario = usuarioRepository.findByEmail(auth.getName());
@@ -147,7 +147,7 @@ public class WebFiliaisController {
 
         if (optionalFilial.isPresent()) {
 
-            ModelAndView mv = new ModelAndView("/filiais/editar");
+            ModelAndView mv = new ModelAndView("filiais/editar");
 
             Authentication auth = SecurityContextHolder.getContext().getAuthentication();
             Optional<Usuario> optionalUsuario = usuarioRepository.findByEmail(auth.getName());
@@ -178,7 +178,7 @@ public class WebFiliaisController {
 
         // Se houver erros de validação, retornar para o formulário
         if (bindingResult.hasErrors()) {
-            ModelAndView mv = new ModelAndView("/filiais/editar");
+            ModelAndView mv = new ModelAndView("filiais/editar");
 
             // Adicionar o usuário logado
             Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -214,7 +214,7 @@ public class WebFiliaisController {
 
         } catch (Exception e) {
             // Em caso de erro, retornar para o formulário com mensagem de erro
-            ModelAndView mv = new ModelAndView("/filiais/editar");
+            ModelAndView mv = new ModelAndView("filiais/editar");
 
             // Adicionar o usuário logado
             Authentication auth = SecurityContextHolder.getContext().getAuthentication();

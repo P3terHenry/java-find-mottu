@@ -41,7 +41,7 @@ public class WebMotosController {
                                   @RequestParam(value = "filial", required = false) Long filialId,
                                   @RequestParam(value = "search", required = false) String search) {
 
-        ModelAndView mv = new ModelAndView("/motos/index");
+        ModelAndView mv = new ModelAndView("motos/index");
 
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         Optional<Usuario> op = usuarioRepository.findByEmail(auth.getName());
@@ -96,7 +96,7 @@ public class WebMotosController {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         Optional<Usuario> op = usuarioRepository.findByEmail(auth.getName());
 
-        ModelAndView mv = new ModelAndView("/motos/nova");
+        ModelAndView mv = new ModelAndView("motos/nova");
 
         if (op.isPresent()) {
             mv.addObject("user_logged", op.get());
@@ -116,7 +116,7 @@ public class WebMotosController {
 
         // Se houver erros de validação, retornar para o formulário
         if (bindingResult.hasErrors()) {
-            ModelAndView mv = new ModelAndView("/motos/nova");
+            ModelAndView mv = new ModelAndView("motos/nova");
 
             // Adicionar o usuário logado
             Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -137,7 +137,7 @@ public class WebMotosController {
         try {
             // Verificar se já existe moto com a mesma placa
             if (motoRepository.findByPlacaMoto(moto.getPlacaMoto()).isPresent()) {
-                ModelAndView mv = new ModelAndView("/motos/nova");
+                ModelAndView mv = new ModelAndView("motos/nova");
 
                 Authentication auth = SecurityContextHolder.getContext().getAuthentication();
                 Optional<Usuario> op = usuarioRepository.findByEmail(auth.getName());
@@ -153,7 +153,7 @@ public class WebMotosController {
 
             // Verificar se já existe moto com o mesmo QR Code
             if (motoRepository.findByIdQrCode(moto.getIdQrCode()).isPresent()) {
-                ModelAndView mv = new ModelAndView("/motos/nova");
+                ModelAndView mv = new ModelAndView("motos/nova");
 
                 Authentication auth = SecurityContextHolder.getContext().getAuthentication();
                 Optional<Usuario> op = usuarioRepository.findByEmail(auth.getName());
@@ -182,7 +182,7 @@ public class WebMotosController {
 
         } catch (Exception e) {
             // Em caso de erro, retornar para o formulário com mensagem de erro
-            ModelAndView mv = new ModelAndView("/motos/nova");
+            ModelAndView mv = new ModelAndView("motos/nova");
 
             // Adicionar o usuário logado
             Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -205,7 +205,7 @@ public class WebMotosController {
 
         if (optionalMoto.isPresent()) {
 
-            ModelAndView mv = new ModelAndView("/motos/detalhes");
+            ModelAndView mv = new ModelAndView("motos/detalhes");
 
             Authentication auth = SecurityContextHolder.getContext().getAuthentication();
             Optional<Usuario> optionalUsuario = usuarioRepository.findByEmail(auth.getName());
@@ -230,7 +230,7 @@ public class WebMotosController {
 
         if (optionalMoto.isPresent()) {
 
-            ModelAndView mv = new ModelAndView("/motos/editar");
+            ModelAndView mv = new ModelAndView("motos/editar");
 
             Authentication auth = SecurityContextHolder.getContext().getAuthentication();
             Optional<Usuario> optionalUsuario = usuarioRepository.findByEmail(auth.getName());
@@ -263,7 +263,7 @@ public class WebMotosController {
 
         // Se houver erros de validação, retornar para o formulário
         if (bindingResult.hasErrors()) {
-            ModelAndView mv = new ModelAndView("/motos/editar");
+            ModelAndView mv = new ModelAndView("motos/editar");
 
             // Adicionar o usuário logado
             Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -287,7 +287,7 @@ public class WebMotosController {
             // Verificar se já existe outra moto com a mesma placa
             Optional<Moto> motoComMesmaPlaca = motoRepository.findByPlacaMoto(moto.getPlacaMoto());
             if (motoComMesmaPlaca.isPresent() && !motoComMesmaPlaca.get().getId().equals(id)) {
-                ModelAndView mv = new ModelAndView("/motos/editar");
+                ModelAndView mv = new ModelAndView("motos/editar");
 
                 Authentication auth = SecurityContextHolder.getContext().getAuthentication();
                 Optional<Usuario> op = usuarioRepository.findByEmail(auth.getName());
@@ -306,7 +306,7 @@ public class WebMotosController {
             // Verificar se já existe outra moto com o mesmo QR Code
             Optional<Moto> motoComMesmoQR = motoRepository.findByIdQrCode(moto.getIdQrCode());
             if (motoComMesmoQR.isPresent() && !motoComMesmoQR.get().getId().equals(id)) {
-                ModelAndView mv = new ModelAndView("/motos/editar");
+                ModelAndView mv = new ModelAndView("motos/editar");
 
                 Authentication auth = SecurityContextHolder.getContext().getAuthentication();
                 Optional<Usuario> op = usuarioRepository.findByEmail(auth.getName());
@@ -343,7 +343,7 @@ public class WebMotosController {
 
         } catch (Exception e) {
             // Em caso de erro, retornar para o formulário com mensagem de erro
-            ModelAndView mv = new ModelAndView("/motos/editar");
+            ModelAndView mv = new ModelAndView("motos/editar");
 
             // Adicionar o usuário logado
             Authentication auth = SecurityContextHolder.getContext().getAuthentication();

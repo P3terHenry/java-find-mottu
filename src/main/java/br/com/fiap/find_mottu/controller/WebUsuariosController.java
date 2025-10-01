@@ -41,7 +41,7 @@ public class WebUsuariosController {
     @GetMapping("/usuarios")
     public ModelAndView viewUsuarios() {
 
-        ModelAndView mv = new ModelAndView("/usuarios/index");
+        ModelAndView mv = new ModelAndView("usuarios/index");
 
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 
@@ -63,7 +63,7 @@ public class WebUsuariosController {
 
         Optional<Usuario> op = usuarioRepository.findByEmail(auth.getName());
 
-        ModelAndView mv = new ModelAndView("/usuarios/novo");
+        ModelAndView mv = new ModelAndView("usuarios/novo");
 
         if (op.isPresent()) {
             mv.addObject("user_logged", op.get());
@@ -90,7 +90,7 @@ public class WebUsuariosController {
 
         // Se houver erros de validação, retornar para o formulário
         if (bindingResult.hasErrors()) {
-            ModelAndView mv = new ModelAndView("/usuarios/novo");
+            ModelAndView mv = new ModelAndView("usuarios/novo");
 
             // Adicionar o usuário logado
             Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -147,7 +147,7 @@ public class WebUsuariosController {
         } catch (Exception e) {
 
             // Em caso de erro, retornar para o formulário com mensagem de erro
-            ModelAndView mv = new ModelAndView("/usuarios/novo");
+            ModelAndView mv = new ModelAndView("usuarios/novo");
 
             // Adicionar o usuário logado
             Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -174,7 +174,7 @@ public class WebUsuariosController {
 
         if(optionalUsuario.isPresent()) {
 
-            ModelAndView mv = new ModelAndView("/usuarios/detalhes");
+            ModelAndView mv = new ModelAndView("usuarios/detalhes");
 
             Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 
@@ -200,7 +200,7 @@ public class WebUsuariosController {
 
         if(optionalUsuario.isPresent()) {
 
-            ModelAndView mv = new ModelAndView("/usuarios/editar");
+            ModelAndView mv = new ModelAndView("usuarios/editar");
 
             Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 
@@ -271,7 +271,7 @@ public class WebUsuariosController {
 
         // Se houver erros de validação, retornar para o formulário
         if (bindingResult.hasErrors()) {
-            ModelAndView mv = new ModelAndView("/usuarios/editar");
+            ModelAndView mv = new ModelAndView("usuarios/editar");
 
             // Adicionar o usuário logado
             Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -336,7 +336,7 @@ public class WebUsuariosController {
 
         } catch (Exception e) {
             // Em caso de erro, retornar para o formulário com mensagem de erro
-            ModelAndView mv = new ModelAndView("/usuarios/editar");
+            ModelAndView mv = new ModelAndView("usuarios/editar");
 
             // Adicionar o usuário logado
             Authentication auth = SecurityContextHolder.getContext().getAuthentication();

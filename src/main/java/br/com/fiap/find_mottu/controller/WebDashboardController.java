@@ -29,7 +29,7 @@ public class WebDashboardController {
     @GetMapping("/dashboard")
     public ModelAndView viewIndex() {
 
-        ModelAndView mv = new ModelAndView("/dashboard/index");
+        ModelAndView mv = new ModelAndView("dashboard/index");
 
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 
