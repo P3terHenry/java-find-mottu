@@ -3,11 +3,11 @@
 
 name: 'Build and deploy JAR app to Azure Web App: app-find-mottu'
 
-on:
-  push:
-    branches:
-    - main
-  workflow_dispatch:
+# on:
+#   push:
+#     branches:
+#       - main
+#   workflow_dispatch:
 
 jobs:
   build-and-deploy:
