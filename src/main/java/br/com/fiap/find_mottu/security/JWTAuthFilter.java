@@ -47,7 +47,11 @@ public class JWTAuthFilter extends OncePerRequestFilter {
             "/h2-console",
 
             // Autenticação pública
-            "/auth/"
+            "/auth/",
+
+            // Uploads e arquivos públicos
+            "/api/arquivos/upload",
+            "/api/arquivos/"
     );
 
     // === ROTAS QUE DEVEM USAR JWT (APENAS APIs) ===
@@ -62,7 +66,12 @@ public class JWTAuthFilter extends OncePerRequestFilter {
             return false;
         }
 
-        // REGRA 3: Verificar se está na lista de exclusões gerais
+        // REGRA 3: Rotas públicas de arquivos
+        if (path.startsWith("/api/arquivos/")) {
+            return false;
+        }
+
+        // REGRA 4: Verificar se está na lista de exclusões gerais
         return EXCLUDED_PATHS.stream().noneMatch(path::startsWith);
     }
 

@@ -56,7 +56,8 @@ public class SegurancaConfig {
 
                                         // === ROTAS DE AUTENTICAÇÃO DA API (PÚBLICAS) ===
                                         "/api/autenticacao/**",  // Login e validação de token
-                                        "/api/auth/**"           // Outras rotas de auth
+                                        "/api/auth/**",          // Outras rotas de auth
+                                        "/api/arquivos/**"       // Upload de arquivos (público)
                                 ).permitAll()
 
                                 // === ROTAS DA API (PROTEGIDAS POR JWT) ===
