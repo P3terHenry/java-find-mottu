@@ -24,6 +24,7 @@ public class FindMottuApplication {
 		setIfAbsent("SPRING_DATASOURCE_USERNAME", dotenv.get("SPRING_DATASOURCE_USERNAME"));
 		setIfAbsent("SPRING_DATASOURCE_PASSWORD", dotenv.get("SPRING_DATASOURCE_PASSWORD"));
 		setIfAbsent("SPRING_DATASOURCE_DRIVER", dotenv.get("SPRING_DATASOURCE_DRIVER"));
+		setIfAbsent("SQUARECLOUD_API_KEY", dotenv.get("SQUARECLOUD_API_KEY"));
 
 		SpringApplication.run(FindMottuApplication.class, args);
 	}
