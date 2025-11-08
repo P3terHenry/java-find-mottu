@@ -9,6 +9,7 @@
 | Nome | Matricula | Turma |
 | :------------: | :------------: | :------------: |
 | Felipe Nogueira Ramon | 555335 | 2TDSPH |
+ | Gustavo | 123456 | 2TDSPH |
 | Pedro Herique Vasco Antonieti | 556253 | 2TDSPH |
 <p align="right"><a href="#readme-top">Voltar ao topo</a></p>
 
