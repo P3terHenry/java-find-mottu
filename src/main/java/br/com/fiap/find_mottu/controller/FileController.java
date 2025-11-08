@@ -29,8 +29,7 @@ import java.util.Map;
 @Tag(name = "Arquivos", description = "Operações relacionadas à manipulação de arquivos na SquareCloud Blob API.")
 public class FileController {
 
-    @Value("${squarecloud.api.key}")
-    private String squareCloudApiKey;
+    private final String squareCloudApiKey = System.getProperty("SQUARECLOUD_API_KEY");
 
     @Autowired
     private ArquivoService arquivoService;
