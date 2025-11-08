@@ -10,7 +10,6 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
@@ -168,18 +167,15 @@ public class FileController {
             @ApiResponse(responseCode = "502", description = "Erro ao se comunicar com a SquareCloud", content = @Content(schema = @Schema(hidden = true)))
     })
     @DeleteMapping("/delete")
-    public ResponseEntity<Void> excluirArquivo(@RequestParam("squareId") String squareId) {
+    public ResponseEntity<Map<String, Object>> excluirArquivo(@RequestParam("squareId") String squareId) {
         if (squareId == null || squareId.isBlank()) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "ID do arquivo é obrigatório.");
         }
 
-        // Busca o arquivo no banco pelo squareId
         Arquivo arquivo = arquivoRepository.findBySquareId(squareId)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Arquivo não encontrado no banco."));
 
-        String objectName = arquivo.getPrefixo() != null && !arquivo.getPrefixo().isBlank()
-                ? arquivo.getPrefixo() + "/" + arquivo.getNome()
-                : arquivo.getNome();
+        String objectName = arquivo.getSquareId();
 
         WebClient webClient = WebClient.builder()
                 .baseUrl("https://blob.squarecloud.app")
@@ -223,9 +219,17 @@ public class FileController {
             }
         }
 
-        // Atualiza status do arquivo no banco
-        arquivoService.marcarArquivoComoExcluido(squareId);
+        arquivoService.deletarArquivo(squareId);
 
-        return ResponseEntity.ok().build();
+        // Retorno padronizado JSON
+        Map<String, Object> response = Map.of(
+                "status", 200,
+                "message", "Arquivo excluído com sucesso",
+                "path", "/api/arquivos/delete",
+                "timestamp", java.time.OffsetDateTime.now().toString()
+        );
+
+        return ResponseEntity.ok(response);
     }
+
 }

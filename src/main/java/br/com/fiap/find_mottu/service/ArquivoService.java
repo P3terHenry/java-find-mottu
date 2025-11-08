@@ -24,7 +24,9 @@ public class ArquivoService {
         // 🔹 Verifica se já existe um arquivo com esse squareId
         Arquivo arquivo = null;
         if (squareId != null) {
-            arquivo = arquivoRepository.findBySquareId(squareId).orElse(null);
+            arquivo = arquivoRepository.findBySquareId(squareId)
+                    .filter(a -> EnumStatusArquivo.ATIVO.equals(a.getStatusArquivo())) // só retorna se estiver ATIVO
+                    .orElse(null);
         }
 
         // 🔹 Se não existir, cria um novo
@@ -57,12 +59,10 @@ public class ArquivoService {
     }
 
     @Transactional
-    public void marcarArquivoComoExcluido(String objectName) {
-        arquivoRepository.findBySquareId(objectName)
-                .ifPresent(arquivo -> {
-                    arquivo.setStatusArquivo(EnumStatusArquivo.EXCLUIDO);
-                    arquivoRepository.save(arquivo);
-                });
+    public void deletarArquivo(String squareId) {
+        arquivoRepository.findAllBySquareId(squareId)
+                .forEach(arquivoRepository::delete);
     }
+
 
 }
