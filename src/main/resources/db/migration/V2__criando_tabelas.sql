@@ -1,49 +1,75 @@
-create table t_mottu_cargo (
-    id_cargo bigint identity(1,1) primary key,
-    nome_cargo varchar(20) not null,
-    constraint chk_nome_cargo check (nome_cargo in ('ADMIN','AUXILIAR','CEO','COORDENADOR','ESTAGIARIO','GERENTE','MECANICO','SUPERVISOR'))
+CREATE TABLE t_mottu_cargo (
+    id_cargo BIGINT IDENTITY(1,1) PRIMARY KEY,
+    nome_cargo VARCHAR(20) NOT NULL,
+    CONSTRAINT chk_nome_cargo CHECK (nome_cargo IN (
+       'ADMIN','AUXILIAR','CEO','COORDENADOR','ESTAGIARIO',
+       'GERENTE','MECANICO','SUPERVISOR'
+    ))
 );
 
-create table t_mottu_filiais (
-    id_filial bigint identity(1,1) primary key,
-    end_filial varchar(255) not null
+CREATE TABLE t_mottu_filiais (
+    id_filial BIGINT IDENTITY(1,1) PRIMARY KEY,
+    end_filial VARCHAR(255) NOT NULL
 );
 
-create table t_mottu_localizacoes (
-    id_localizacao bigint identity(1,1) primary key,
-    pos_x decimal(4,3) not null,
-    pos_y decimal(4,3) not null,
-    status_localizacao integer not null,
-    data_localizacao datetime2(6) not null,
-    id_moto bigint,
-    id_imagem varchar(255) not null
+CREATE TABLE t_mottu_motos (
+    id_moto BIGINT IDENTITY(1,1) PRIMARY KEY,
+    status_moto INT NOT NULL,
+    id_filial BIGINT NOT NULL,
+    id_imei BIGINT,
+    num_motor BIGINT,
+    id_qr_code VARCHAR(255),
+    modelo_moto VARCHAR(255),
+    num_chassi VARCHAR(255),
+    placa_moto VARCHAR(255)
 );
 
-create table t_mottu_motos (
-    id_moto bigint identity(1,1) primary key,
-    status_moto integer not null,
-    id_filial bigint not null,
-    id_imei bigint,
-    num_motor bigint,
-    id_qr_code varchar(255),
-    modelo_moto varchar(255),
-    num_chassi varchar(255),
-    placa_moto varchar(255)
+CREATE TABLE t_mottu_usuario (
+    id_usuario BIGINT IDENTITY(1,1) PRIMARY KEY,
+    idade INT NOT NULL,
+    id_filial BIGINT NOT NULL,
+    senha VARCHAR(60) NOT NULL,
+    primeiro_nome VARCHAR(50) NOT NULL,
+    sobrenome VARCHAR(50) NOT NULL,
+    email VARCHAR(100) NOT NULL
 );
 
-create table t_mottu_usuario (
-    id_usuario bigint identity(1,1) primary key,
-    idade integer not null,
-    id_filial bigint not null,
-    senha varchar(60) not null,
-    primeiro_nome varchar(50) not null,
-    sobrenome varchar(50) not null,
-    email varchar(100) not null
+CREATE TABLE t_usuario_cargo (
+    id_cargo BIGINT NOT NULL,
+    id_usuario BIGINT NOT NULL,
+    PRIMARY KEY (id_cargo, id_usuario)
 );
 
-create table t_usuario_cargo (
-    id_cargo bigint not null,
-    id_usuario bigint not null,
-    primary key (id_cargo, id_usuario)
+CREATE TABLE t_mottu_localizacoes (
+    id_localizacao BIGINT IDENTITY(1,1) PRIMARY KEY,
+    pos_x DECIMAL(4,3) NOT NULL,
+    pos_y DECIMAL(4,3) NOT NULL,
+    status_localizacao INT NOT NULL,
+    data_localizacao DATETIME2(6) NOT NULL,
+    id_moto BIGINT,
+    id_imagem VARCHAR(255) NOT NULL
 );
+
+CREATE TABLE t_mottu_arquivo (
+    ID_ARQUIVO BIGINT IDENTITY(1,1) PRIMARY KEY,
+    ID_SQUARE VARCHAR(255) NOT NULL UNIQUE,
+    NOME VARCHAR(255) NOT NULL,
+    PREFIXO VARCHAR(255),
+    URL VARCHAR(500) NOT NULL,
+    HASH_SEGURANCA BIT,
+    TAMANHO_BYTES BIGINT,
+    STATUS_UPLOAD VARCHAR(10) NOT NULL,
+    STATUS_ARQUIVO VARCHAR(10) NOT NULL,
+    DATA_EXPIRACAO DATETIME2(6),
+    AUTO_DOWNLOAD BIT,
+    CRIADO_EM DATETIME2(6) NOT NULL DEFAULT SYSDATETIME(),
+    ATUALIZADO_EM DATETIME2(6) NOT NULL DEFAULT SYSDATETIME(),
+
+    CONSTRAINT CHK_STATUS_UPLOAD CHECK (STATUS_UPLOAD IN ('SUCCESS', 'ERROR')),
+    CONSTRAINT CHK_STATUS_ARQUIVO CHECK (STATUS_ARQUIVO IN ('ATIVO', 'EXCLUIDO')),
+    CONSTRAINT CHK_EXPIRE_VALIDADE CHECK (
+        DATA_EXPIRACAO IS NULL OR DATA_EXPIRACAO BETWEEN SYSDATETIME() AND DATEADD(DAY, 365, SYSDATETIME())
+    )
+);
+
 

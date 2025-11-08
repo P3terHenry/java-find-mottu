@@ -13,4 +13,3 @@ IF OBJECT_ID('t_usuario_cargo', 'U') IS NOT NULL
 
 IF OBJECT_ID('t_usuario_cargo', 'U') IS NOT NULL
     ALTER TABLE t_usuario_cargo ADD CONSTRAINT FKtijnqqgyv757onv8hdqlq0mbf FOREIGN KEY (id_usuario) REFERENCES t_mottu_usuario(id_usuario);
-
