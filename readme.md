@@ -11,7 +11,7 @@
 | Felipe Nogueira Ramon | 555335 | 2TDSPH |
  | Gustavo | 123456 | 2TDSPH |
 | Pedro Herique Vasco Antonieti | 556253 | 2TDSPH |
-<p align="right"><a href="#readme-top">Voltar ao topo</a></p>
+[Voltar ao topo](#readme-top)
 
 ## 🚩 Características
 
@@ -26,22 +26,25 @@
 - **Migrations de Banco** com Flyway para controle de versão
 - **Clean Code** seguindo convenções Java e Spring Boot
 
-<p align="right"><a href="#readme-top">Voltar ao topo</a></p>
+[Voltar ao topo](#readme-top)
 
 ## 🎥 Youtube
 
 Apresentação do projeto no Youtube: https://www.youtube.com/watch?v=qkSbIB2PRp8
 
-<p align="right"><a href="#readme-top">Voltar ao topo</a></p>
+[Voltar ao topo](#readme-top)
 
 
 ## 🛠️ Tecnologias Utilizadas
 
-![Apache Maven](https://img.shields.io/badge/Apache%20Maven-C71A36?style=for-the-badge&logo=Apache%20Maven&logoColor=white)
-![Java](https://img.shields.io/badge/java-%23ED8B00.svg?style=for-the-badge&logo=openjdk&logoColor=white)
-![Swagger](https://img.shields.io/badge/-Swagger-%23Clojure?style=for-the-badge&logo=swagger&logoColor=white)
+- Spring Boot
+- Spring Web
+- Spring Security
+- Java 17+
+- Maven
+- SQL Server
 
-<p align="right"><a href="#readme-top">Voltar ao topo</a></p>
+[Voltar ao topo](#readme-top)
 
 ## 💻 Inicializar projeto
 
@@ -50,27 +53,84 @@ Para iniciar o projeto faz se necessário seguir algumas etapas abaixo:
 ### 📝 Pré-requisitos
 
 - Java 17+
-- Maven 3.1.0
+- Maven 3.1.0+
 - IDE (como IntelliJ, Eclipse ou VS Code)
+- Acesso a uma instância do SQL Server
 
 ### 🗃️ Instalação
 1. Clone o repositório para a sua pasta:
-    ```sh
+    ```cmd
     git clone https://github.com/P3terHenry/java-find-mottu.git
+    cd java-find-mottu
     ```
-2. Acesse a pasta onde você colocou seu projeto.
-3. Copile e execute o projeto:
-   ```sh
-   ./mvnw spring-boot:run
-   ```
+2. Copie o arquivo de exemplo de variáveis de ambiente e atualize-o com suas credenciais e URL do SQL Server:
+    ```cmd
+    copy .env.example .env
+    ```
+   - Abra o arquivo ` .env` e ajuste as variáveis de conexão (ver seção "Configuração do Banco de Dados" abaixo).
+
+3. Build e execução (opções):
+   - Usando o wrapper no Windows (cmd):
+     ```cmd
+     .\mvnw.cmd clean package
+     java -jar target\find-mottu-1.0.0.jar
+     ```
+     Observação: substitua `find-mottu-1.0.0.jar` pelo nome do JAR gerado em `target`.
+
+   - Ou executar diretamente pela IDE: execute a classe anotada com `@SpringBootApplication`.
+
 4. Acesse o Swagger para testar os endpoints da API:
-   ```link
+   ```text
    http://localhost:8080/swagger-ui/index.html
    ```
 5. Acesse a interface web para administração:
    ```link
-    http://localhost:8080/
-    ```
+   http://localhost:8080/
+   ```
+
 ### 🗄️ Acesso ao Banco de Dados
-Projeto utiliza Banco H2, acesse via http://localhost:8080/h2-console.
-<p align="right"><a href="#readme-top">Voltar ao topo</a></p>
+O projeto foi adaptado para uso com SQL Server. Não utiliza mais o console H2 por padrão.
+
+[Voltar ao topo](#readme-top)
+
+## ⚙️ Configuração do Banco de Dados (SQL Server)
+Edite o arquivo ` .env` criado a partir de ` .env.example` e preencha as variáveis abaixo:
+
+- `SPRING_DATASOURCE_URL` — exemplo:
+  ```text
+  jdbc:sqlserver://<HOST>:1433;databaseName=<NOME_DO_BANCO>
+  ```
+- `SPRING_DATASOURCE_USERNAME` — usuário do banco
+- `SPRING_DATASOURCE_PASSWORD` — senha do usuário
+- `SPRING_DATASOURCE_DRIVER` — use:
+  ```text
+  com.microsoft.sqlserver.jdbc.SQLServerDriver
+  ```
+- `SPRING_JPA_DATABASE_PLATFORM` — exemplo:
+  ```text
+  org.hibernate.dialect.SQLServerDialect
+  ```
+- `SPRING_JPA_HIBERNATE_DDL_AUTO` — valores comuns: `validate`, `update`, `none` (evitar `create` em produção)
+
+Observação: entradas relacionadas ao H2 (se presentes) podem permanecer comentadas no exemplo, mas o comportamento do projeto pressupõe SQL Server.
+
+[Voltar ao topo](#readme-top)
+
+## 🔒 Segurança
+Autenticação e controle de acesso implementados com Spring Security.
+
+## 🧪 Testes
+- Executar testes unitários:
+  ```cmd
+  .\mvnw.cmd test
+  ```
+
+## 📦 Dependências importantes
+- Driver JDBC do SQL Server (ver `pom.xml`):
+  ```xml
+  <dependency>
+    <groupId>com.microsoft.sqlserver</groupId>
+    <artifactId>mssql-jdbc</artifactId>
+    <version>11.2.1.jre17</version>
+  </dependency>
+  ```
