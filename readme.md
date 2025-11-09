@@ -2,7 +2,7 @@
 
 # 📱 Challange - Mottu - Java API com Thymeleaf - Find Mottu
 
- [![Build status](https://dev.azure.com/556253/Sprint%204%20%E2%80%93%20Azure%20DevOps/_apis/build/status/Sprint%204%20%E2%80%93%20Azure%20DevOps-Maven%20-%20CI)](https://dev.azure.com/556253/Sprint%204%20%E2%80%93%20Azure%20DevOps/_build/latest?definitionId=4) ![Static Badge](https://img.shields.io/badge/Version-1.0.3-black) ![License](https://img.shields.io/badge/license-MIT-lightgrey)
+ ![Build status](https://dev.azure.com/556253/Sprint%204%20%E2%80%93%20Azure%20DevOps/_apis/build/status/Sprint%204%20%E2%80%93%20Azure%20DevOps-Maven%20-%20CI?branchName=main) ![Static Badge](https://img.shields.io/badge/Version-1.0.3-black) ![License](https://img.shields.io/badge/license-MIT-lightgrey)
 
 ## 🧑‍🤝‍🧑 Informações dos Contribuintes
 
