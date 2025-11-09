@@ -9,7 +9,7 @@
 | Nome | Matricula | Turma |
 | :------------: | :------------: | :------------: |
 | Felipe Nogueira Ramon | 555335 | 2TDSPH |
-| Gustavo | 123456 | 2TDSPH |
+| Gustavo de Souza Amorim | 556999 | 2TDSPW |
 | Pedro Herique Vasco Antonieti | 556253 | 2TDSPH |
 
 
@@ -30,7 +30,7 @@
 
 ## 🎥 Youtube
 
-Apresentação do projeto no Youtube: https://www.youtube.com/watch?v=qkSbIB2PRp8
+Apresentação do projeto no Youtube: https://youtu.be/Jt-JwgZLHzU
 
 [Voltar ao topo](#readme-top)
 
